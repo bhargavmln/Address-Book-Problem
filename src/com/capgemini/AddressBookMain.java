@@ -153,7 +153,7 @@ public class AddressBookMain{
 	
 	public static void main(String[] args){
 		Scanner sc = new Scanner(System.in);	
-		//welcome statemment
+		//welcome statement
 		AddressBookMain addressBookMain = new AddressBookMain();
 		System.out.println("Welcome to Address Book Program");
 		
