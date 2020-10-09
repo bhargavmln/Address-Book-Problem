@@ -1,10 +1,24 @@
 import java.util.*;
 public class AddressBookMain{
 	
-	static List<Contact> addressBook = new ArrayList<Contact>();
+	 List<Contact> addressBook = new ArrayList<Contact>();
 	
-	
-	public static void addContact(){
+	public void deleteContact(String firstName){
+		boolean check = false;
+		for(Contact c:addressBook){
+			if(firstName.equals(c.getFirstName())){
+				addressBook.remove(c);
+				check = true;
+				break;
+			}
+		}
+		if(check == false){
+			System.out.println("contact with first name " + firstName + " doesn't exist.");
+		}
+	}
+			
+			
+	public void addContact(){
 		Scanner sc = new Scanner(System.in);
 		Contact entry = new Contact();
 		
@@ -33,11 +47,13 @@ public class AddressBookMain{
 		}				
 	}
 	
-	public static void editContact(String firstName){
+	public void editContact(String firstName){
 		Scanner sc = new Scanner(System.in);
 		boolean exitFlag = true;
+		boolean check = false;
 		for(Contact entry:addressBook){
 			if(entry.getFirstName().equals(firstName)){
+				check = true;
 				while(exitFlag){
 					System.out.println("Enter your choice:\n 1.firstName\n 2.lastName\n 3.address\n 4.city\n 5.state\n 6.zip\n 7.phoneNo\n 8.email\n 9.exit");
 					int choice = sc.nextInt();
@@ -115,33 +131,38 @@ public class AddressBookMain{
 							if(answer == 'N'){
 								exitFlag = false;
 							}
-                            break;}
+                            break;
+						}
 
                         case 9:{
 							System.out.println("Exiting edit section");
                             exitFlag = false;
-                            break;}
+                            break;
+						}
 
                         default:
-                            System.out.println("Enter number from 1 to 7");
+                            System.out.println("Enter number from 1 to 9");
 					}
 				}
 			}
-			else{
-				System.out.println("Contact with "+firstName+" does not exist.");
-			}
+		}
+		if(check == false){
+			System.out.println("contact with first name " + firstName + " doesn't exist.");
 		}
 	}
 	
 	public static void main(String[] args){
 		Scanner sc = new Scanner(System.in);	
 		//welcome statemment
+		AddressBookMain addressBookMain = new AddressBookMain();
 		System.out.println("Welcome to Address Book Program");
 		
-		AddressBookMain.addContact();
+		addressBookMain.addContact();
 		
 		System.out.println("Enter the name of the conatact to be edited:");
-		AddressBookMain.editContact(sc.next());
+		addressBookMain.editContact(sc.next());
 		
+		System.out.println("Enter the name of the contact to be deleted:");
+		addressBookMain.deleteContact(sc.next());
 	}
 }
